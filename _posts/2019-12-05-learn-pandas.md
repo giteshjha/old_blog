@@ -2,6 +2,12 @@
 title: Learn Pandas
 updated: 2019-12-05 11:52
 ---
+<style type="text/css">
+	code{
+		color: #000;
+		background: #fff;
+	}
+</style>
 
 1. What it is dataframe?
     Different ways to create a dataframe
@@ -175,11 +181,15 @@ df.dtypes
 ```py
 df.col1.dtype
 ```
+<code>
 dtype('int64')
+</code>
 ```py
 df.shape
 ```
+<code>
 (62, 10)
+</code>
 ```py
 df.info()
 ```
@@ -249,11 +259,15 @@ type(df['A'])
 ```py
 df['small'].values
 ```
+<code>
 array(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'], dtype=object)
+</code>
 ```py
 df['small'].tolist()
 ```
+<code>
 ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
+</code>
 ```py
 df[['capital','small']]
 ```
@@ -273,7 +287,9 @@ df
 #With rows
 df[1:10:3].values.tolist()
 ```
+<code>
 [[2, 'B', 'b'], [5, 'E', 'e'], [8, 'H', 'h']]
+</code>
 ## Column and Row addition, deletion
 ```py
 df['newColumn'] = [0,0,0,0,0,0,0,0,0,0]
@@ -509,7 +525,9 @@ df
 ```py
 df['A'].corr(df['B'])
 ```
-1.0
+<code>
+	1.0
+</code>
 
 ```py
 df.corr()

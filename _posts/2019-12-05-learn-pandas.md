@@ -32,7 +32,7 @@ print(df)
 ```
 ![](images/post1/1.png)
 
-Signature of DataFrame() function looks like this : pd.DataFrame(data=None, index=None, columns=None, dtype=None, copy=False).
+Signature of DataFrame() function looks like this : ```pd.DataFrame(data=None, index=None, columns=None, dtype=None, copy=False)```.
 Here data can be ndarray (structured or homogeneous), Iterable, dict, or DataFrame Dict can contain Series, arrays, constants, or list-like objects.
 Now let's pass a list as data. How do you think it will interpret list as a column or row?
 ```py

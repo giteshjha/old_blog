@@ -31,7 +31,6 @@ df = pd.DataFrame()
 print(df)
 ```
 ![](images/post1/1.png)
-
 Signature of DataFrame() function looks like this : ```pd.DataFrame(data=None, index=None, columns=None, dtype=None, copy=False)```.
 Here data can be ndarray (structured or homogeneous), Iterable, dict, or DataFrame Dict can contain Series, arrays, constants, or list-like objects.
 Now let's pass a list as data. How do you think it will interpret list as a column or row?
@@ -42,7 +41,6 @@ df = pd.DataFrame(data)
 df
 ```
 ![](images/post1/2.png)
-
 In previous example we saw that it considers list as a list of rows, so it breaks in into 5 rows.
 What if we want to pass it as single row?
 ```py
@@ -52,10 +50,7 @@ df = pd.DataFrame(data)
 df
 ```
 ![](images/post1/3.png)
-
 Now it has only one element(a list) inside the list, hence it has only one row. Below example will make it clear.
-
-
 ```py
 # Create a Pandas DataFrame with list of lists.
 data = [[1,2,3,4,5],[6,7,8,9,10],[11,12,13,14,15],[16,17,18,19,20]]

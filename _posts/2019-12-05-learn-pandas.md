@@ -9,57 +9,60 @@ updated: 2019-12-05 11:52
 	}
 </style>
 
-1. What it is dataframe?
-    Different ways to create a dataframe
-2. Under the hood
-3. slicing(head, tail, in place, out place)
-4. Merging
-5. Join
-6. Preprocessing(delete nan, categorical)
-7. Case studies
-8. Iris dataset example.
-9. miscellaneous
+1. What it is?
+2. Different ways to create a dataframe(List, Dictionary, from files)
+3. Different ways to access pandas column, row, and element
+4. Oprations on rows and columns
+5. Preprocessing and Data Cleaning
+6. Useful pandas functions
+7. Case studies 
+8. Iris dataset example
+9. Documentation
 
-## What it is dataframe?
-DataFrame can be seen as a list of columns, Let's create one.
+## What is it?
+As per the documentation: Pandas DataFrameTwo-dimensional size-mutable, potentially heterogeneous tabular data structure with labeled axes (rows and columns). Arithmetic operations align on both row and column labels. Can be thought of as a dict-like container for Series objects. Here axis-0 represents rows and axis-1 represents column.
+Simple put DataFrame can be seen as a list of columns. Let's see how to create a DataFrame.
 
 ## Different ways to create a dataframe
 ```py
-#Let's create a dataframe, I don't know with the given data what I will do let's check it.
-#With single column.and no index
-data = [1,2,3,4,5] # list means rows.
+import pandas as pd
+# Create an empty Pandas DataFrame
+df = pd.DataFrame()
+print(df)
+```
+![](images/post1/1.png)
+
+Signature of DataFrame() function looks like this : pd.DataFrame(data=None, index=None, columns=None, dtype=None, copy=False).
+Here data can be ndarray (structured or homogeneous), Iterable, dict, or DataFrame Dict can contain Series, arrays, constants, or list-like objects.
+Now let's pass a list as data. How do you think it will interpret list as a column or row?
+```py
+# Create a Pandas DataFrame
+data = [1,2,3,4,5] #
 df = pd.DataFrame(data)
 df
 ```
-![](images/post1/1.PNG)
+![](images/post1/2.png)
 
+In previous example we saw that it considers list as a list of rows, so it breaks in into 5 rows.
+What if we want to pass it as single row?
 ```py
-#In previous example we saw that it considers list as a list of rows so each list element will considered as a single row.
-#With single column.and no index
-# This is how we can tell pandas that I just want a single row
-data = [[1,2,3,4,5]]
+# Create a Pandas DataFrame with single row and list of lists.
+data = [[1,2,3,4,5]] 
 df = pd.DataFrame(data)
 df
 ```
-![](images/post1/2.PNG)
+![](images/post1/3.png)
+
+Now it has only one element(a list) inside the list, hence it has only one row. Below example will make it clear.
+
 
 ```py
-#With single column.and no index
-data = [[[1,2,3,4,5],[1,2,3,4,5]],[[1,2,3,4,5],[1,2,3,4,5]]]
+# Create a Pandas DataFrame with list of lists.
+data = [[1,2,3,4,5],[6,7,8,9,10],[11,12,13,14,15],[16,17,18,19,20]]
 df = pd.DataFrame(data)
 df
 ```
-![](images/post1/3.PNG)
-
-
-```py
-#With single column.and no index
-rows = ['row1', 'row2','row3','row4','row5']
-data = [1,2,3,4,5]
-df = pd.DataFrame(data, index=rows)
-df
-```
-![](images/post1/4.PNG)
+![](images/post1/4.png)
 
 ```py
 #With single column.and no index

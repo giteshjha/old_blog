@@ -65,15 +65,17 @@ df
 ![](images/post1/4.png)
 
 ```py
-#With single column.and no index
-cols = ['col1']
-data = [1,2,3,4,5]
-df = pd.DataFrame(data, columns=cols)
+col1 = [1,2,3,4,5]
+col2 = ['A','B','C','D','E']
+col3 = ['a','b','c','d','e']
+data = list(zip(col1, col2, col3))
+print(data)
+df = pd.DataFrame(data)
 df
 ```
-![](images/post1/5.PNG)
+![](images/post1/5.png)
 
-
+Now Let's pass other arguments like row index and colum names as per the signature of DataFrame(data=None, index=None, columns=None, dtype=None, copy=False).
 ```py
 #With single column.and no index
 rows = ['row1', 'row2','row3','row4','row5']

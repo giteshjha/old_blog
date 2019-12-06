@@ -31,6 +31,7 @@ df = pd.DataFrame()
 print(df)
 ```
 ![](images/post1/1.png)
+
 Signature of DataFrame() function looks like this : ```pd.DataFrame(data=None, index=None, columns=None, dtype=None, copy=False)```.
 Here data can be ndarray (structured or homogeneous), Iterable, dict, or DataFrame Dict can contain Series, arrays, constants, or list-like objects.
 Now let's pass a list as data. How do you think it will interpret list as a column or row?
@@ -41,6 +42,7 @@ df = pd.DataFrame(data)
 df
 ```
 ![](images/post1/2.png)
+
 In previous example we saw that it considers list as a list of rows, so it breaks in into 5 rows.
 What if we want to pass it as single row?
 ```py
@@ -50,6 +52,7 @@ df = pd.DataFrame(data)
 df
 ```
 ![](images/post1/3.png)
+
 Now it has only one element(a list) inside the list, hence it has only one row. Below example will make it clear.
 ```py
 # Create a Pandas DataFrame with list of lists.
@@ -72,51 +75,55 @@ df
 
 Now Let's pass other arguments like row index and colum names as per the signature of DataFrame(data=None, index=None, columns=None, dtype=None, copy=False).
 ```py
-#With single column.and no index
+# Create a Pandas DataFrame with row index or row names.
 rows = ['row1', 'row2','row3','row4','row5']
-cols = ['col1']
 data = [1,2,3,4,5]
-df = pd.DataFrame(data, columns=cols, index=rows)
+df = pd.DataFrame(data, index=rows)
 df
 ```
-![](images/post1/6.PNG)
-
+![](images/post1/6.png)
 
 ```py
-#How to create a dataframe with two different rows? First answer the following how many rows you want? say 5 then 
-#you need 5 elements in the list that's it. 
-#With single column.and no index
-cols = ['col1', 'col2']
-data = [[1,'a'],[2,'b'],[3,'c'],[4,'d'],[5,'e']] # 5 rows basically.
+# Create a Pandas DataFrame with column names.
+cols = ['col1']
+data = ['a','b','c','d','d']
 df = pd.DataFrame(data, columns=cols)
 df
 ```
-![](images/post1/7.PNG)
-
+![](images/post1/7.png)
 
 ```py
-#Only single datatypes allowed.
+# Create a Pandas DataFrame with rows and column names.
+rows = ['row1', 'row2','row3','row4','row5']
+cols = ['col1', 'col2']
+data = [[1,'a'],[2,'b'],[3,'c'],[4,'d'],[5,'e']] # 5 rows basically.
+df = pd.DataFrame(data, columns=cols, index = rows)
+df
+```
+![](images/post1/8.png)
+
+We can pass datatype for the columns, but only one datatype can be passed so make sure all the columns are compatible with the datatype you are passing.
+
+```py
+# Create a Pandas DataFrame with datatypes.
 cols = ['col1', 'col2', 'col3']
-data = [[1,11, 111],[2,22, 222],[3,33, 333]] # 3 rows basically.
-df = pd.DataFrame(data, columns=cols, dtype=int)
+data = [[1,11, 111],[2,22, 222],[3,33, 333]] # 3 rows.
+df = pd.DataFrame(data, columns=cols, dtype=float)
 df
 ```
-![](images/post1/8.PNG)
+![](images/post1/9.png)
+
+Pandas modify the datatype of each columns.
 
 ```py
-#Single column update
-df['col1'] = df['col1'].astype(float)
-df
-```
-![](images/post1/9.PNG)
-
-```py
-#By default it will update all columns
-dtype_dict = {'col1': float, 'col2': str}
+#By default it will update all columns even if you pass it form only one column to the right.
+dtype_dict = {'col2': int, 'col3': int}
 df = df.astype(dtype_dict)
 df
 ```
-![](images/post1/10.PNG)
+![](images/post1/10.png)
+
+Pandas None values.
 
 ```py
 #None example
@@ -125,89 +132,47 @@ data = [[1,'a'],[2],[3,'c'],[4,'d'],[5]] # 5 rows basically.
 df = pd.DataFrame(data, columns=cols)
 df
 ```
-![](images/post1/11.PNG)
+![](images/post1/11.png)
+
+## create pandas DataFrame from dictionary object.
 
 ```py
-#Uses of zip
-col1 = [1,2,3,4,5]
-col2 = ['A','B','C','D','E']
-col3 = ['a','b','c','d','e']
-df = pd.DataFrame([col1, col2, col3])
-df
-```
-![](images/post1/12.PNG)
-
-```py
-col1 = [1,2,3,4,5]
-col2 = ['A','B','C','D','E']
-data = list(zip(col1, col2))
-df = pd.DataFrame(data)
-df
-```
-![](images/post1/13.PNG)
-
-## Dictionary to dataframe
-```py
-data = {'name':'Gitesh', 'Gender':'Male','Address':'Hyderabad'}
-# df = pd.DataFrame(data)
-# df
 data = [{'name':'Gitesh', 'Gender':'Male','Address':'Hyderabad'}]
 df = pd.DataFrame(data)
 df
 ```
-![](images/post1/14.PNG)
+![](images/post1/12.png)
 
 ```py
 data = [{'name':'Gitesh', 'Gender':'Male','Address':'Hyderabad'}, {'name':'Suresh', 'Gender':'Male','Address':'Hyderabad'}]
 df = pd.DataFrame(data)
 df
 ```
-![](images/post1/15.PNG)
+![](images/post1/13.png)
+
 
 ```py
 data = {'name':['Gitesh','Suresh'], 'Gender':['Male','Male'],'Address':['Hyderabad', 'Hyd']}
 df = pd.DataFrame(data)
 df
 ```
-![](images/post1/16.PNG)
-
-## datatypes
-```py
-# All columns can be of different type as it's a list of columns and we know list can contains different kind of objects
-df.dtypes
-```
-![](images/post1/17.PNG)
+![](images/post1/14.png)
 
 ```py
-df.col1.dtype
+data = {'name':'Gitesh', 'Gender':'Male','Address':'Hyderabad'}
+df = pd.DataFrame(data, index=[1,2,3])
+df
 ```
-<code>
-dtype('int64')
-</code>
-```py
-df.shape
-```
-<code>
-(62, 10)
-</code>
-```py
-df.info()
-```
-![](images/post1/18.PNG)
+![](images/post1/15.png)
 
-```py
-df.describe()
-```
-![](images/post1/19.PNG)
-
-## Creating DataFrame from files like csv
+## Creating DataFrame from files like csv.
 ```py
 #Reading without header
 filename = "Data/prospects3.csv"
 df = pd.read_csv(filename)
 df.head()
 ```
-![](images/post1/20.PNG)
+![](images/post1/16.png)
 
 ```py
 #Passing header
@@ -216,333 +181,294 @@ colnames = ['FIRST_NAME', 'LAST_NAME', 'EMAIL_ADDRESS', 'OWNS_CAR', 'ANNUAL_SALA
 df = pd.read_csv(filename ,names=colnames, header=None)
 df.head()
 ```
-![](images/post1/21.PNG)
+![](images/post1/17.png)
 
 ```py
 filename = "Data/mpg.csv"
-df = pd.read_csv('Data/mpg.csv')
+df = pd.read_csv('Data/mpg.csv') # This file already have headers.
 df.head()
 ```
-![](images/post1/22.PNG)
+![](images/post1/18.png)
+
+## Different ways to access pandas column, row, and element.
 
 ```py
-df.dtypes
-```
-![](images/post1/23.PNG)
-
-```py
-col = ['num', 'capital', 'small']
-col1 = [1,2,3,4,5,6,7,8,9,10]
-col2 = ['A','B','C','D','E','F','G','H','I','J']
-col3 = ['a','b','c','d','e','f','g','h','i','j']
-data = list(zip(col1, col2, col3))
-print(list(data))
-df = pd.DataFrame(data, columns = col)
+data = [[1,2,3],[10,20,30],[100,200,300], [111, 222, 333]]
+cols = ['col1', 'col2', 'col3']
+df = pd.DataFrame(data, columns = cols)
 df
 ```
-```
-[(1, 'A', 'a'), (2, 'B', 'b'), (3, 'C', 'c'), (4, 'D', 'd'), (5, 'E', 'e'), (6, 'F', 'f'), (7, 'G', 'g'), (8, 'H', 'h'), (9, 'I', 'i'), (10, 'J', 'j')]
-```
-![](images/post1/24.PNG)
+![](images/post1/19.png)
 
-## slicing(head, tail, in place, out place)
-```py
-df.head()
-```
-![](images/post1/25.PNG)
+Pandas DataFrame access the column using its name.
 
 ```py
-#Accessing columns using name
-df['A']
-type(df['A'])
+df['col1']
 ```
-```py
-df['small'].values
-```
-<code>
-array(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'], dtype=object)
-</code>
-```py
-df['small'].tolist()
-```
-<code>
-['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
-</code>
-```py
-df[['capital','small']]
-```
-![](images/post1/26.PNG)
+![](images/post1/20.png)
+
+Aceesing the values of columns in Pandas DataFrame.
 
 ```py
-df[['capital','small']].values.tolist()
+df['col1'].values
 ```
-![](images/post1/27.PNG)
+![](images/post1/21.png)
+
+Get the pandas column value in list.
+
+```py
+df['col1'].tolist()
+```
+![](images/post1/22.png)
+
+Pandas DataFrame access mutliple column using its name.
+
+```py
+df[['col1','col2']]
+```
+![](images/post1/23.png)
+
+```py
+df[['col1','col2']].values.tolist()
+```
+![](images/post1/24.png)
+
+Pandas DataFrame access all columns using its name and store it inside a list.
+
+```py
+ll = []
+for col in df.columns:
+    l = df[col].values.tolist()
+    ll.append(l)
+ll
+```
+![](images/post1/25.png)
 
 ```py
 df
 ```
-![](images/post1/28.PNG)
+![](images/post1/26.png)
+
+## Accessing pandas DataFrame rows and slicing.
+Here the syntax to access pandas row is ```df[i:j:k]``` where i is the start index of row, j is last index(excluded) and k is the step. For example ```df[0:6:2]``` - This will return first row(0th index start) then skip k-1 rows so here (2-1)=1 rows will be skiped after the current rows so next rows it will return is row with index 2 then 4. It will not include row number 6 because it is not inclsive.
+If we don't specify k by default it is 1.
 
 ```py
-#With rows
-df[1:10:3].values.tolist()
+df[1:4]
 ```
-<code>
-[[2, 'B', 'b'], [5, 'E', 'e'], [8, 'H', 'h']]
-</code>
-## Column and Row addition, deletion
+![](images/post1/27.png)
+
 ```py
-df['newColumn'] = [0,0,0,0,0,0,0,0,0,0]
+df[1:4:2]
+```
+![](images/post1/28.png)
+
+```py
+df[1:4:2].values.tolist()
+```
+![](images/post1/29.png)
+
+## Oprations on rows and columns.
+Pandas DataFrame create or add or apend new column. Make sure new column length matches with the existing column length.
+
+```py
+df['newColumn'] = [0,0,0,0]
 df
 ```
-![](images/post1/29.PNG)
+![](images/post1/30.png)
+
+Pandas DataFrame create new column by adding two existing columns.
 
 ```py
-df['AddedColum'] = df['capital'] + df['small']
+df['AddedColum'] = df['col1'] + df['col2']
 df
 ```
-![](images/post1/30.PNG)
+![](images/post1/31.png)
 
 ```py
-#With single column.and no index
-cols = ['col1']
-data = [1,2,3,4,5]
-df = pd.DataFrame(data, columns=cols)
+data = [[1,2,3],[10,20,30],[100,200,300], [111, 222, 333]]
+cols = ['col1', 'col2', 'col3']
+df = pd.DataFrame(data, columns = cols)
 df
 ```
-![](images/post1/31.PNG)
+![](images/post1/32.png)
+
+Pandas DataFrame overwrite the existing row.
 
 ```py
-# add Rows(overwriting)
 df.iloc[0] = [7]
 df
 ```
-![](images/post1/32.PNG)
+![](images/post1/33.png)
 
 ```py
-#appending
-new_row = pd.DataFrame({'col1':[8]}, index=[5])
-new_row2 = pd.DataFrame({'col1':[8]})
-new_row
+df.iloc[0] = [7,8,9]
+df
 ```
-![](images/post1/33.PNG)
+![](images/post1/34.png)
+
+Pandas DataFrame appending new row. we can append only Series and DataFrame objs.
 
 ```py
+new_row = pd.DataFrame({'col1':[5],'col2':[6],'col3':[7]})
 df.append(new_row)
 ```
-![](images/post1/34.PNG)
+![](images/post1/35.png)
+
+Pandas DataFrame appending new row with index.
 
 ```py
-pd.concat([df, new_row2, new_row])
+new_row = pd.DataFrame({'col1':[5],'col2':[6],'col3':[7]}, index = [4])
+df.append(new_row)
 ```
-![](images/post1/35.PNG)
+![](images/post1/36.png)
+
+Concatination of multiple pandas DataFrame.
 
 ```py
-df = pd.DataFrame([[1, 2], [3, 4]], columns=list('AB'))
+row1 = pd.DataFrame({'col1':[5],'col2':[6],'col3':[7]}, index = [4])
+row2 = pd.DataFrame({'col1':[8],'col2':[9],'col3':[10]}, index = [5])
+pd.concat([df, row1, row2])
+```
+![](images/post1/37.png)
+
+Pandas DataFrame deleting a column. We can pass inplace = True. 
+
+```py
+df.drop(['col1'],axis=1)
+```
+![](images/post1/38.png)
+
+Pandas DataFrame deleting multiple columns
+
+```py
+df.drop(['col1','col2'],axis=1)
+```
+![](images/post1/39.png)
+
+```py
+df.drop(df.columns[[0,1]],axis=1)
+```
+![](images/post1/40.png)
+
+```py
 df
 ```
-![](images/post1/36.PNG)
+![](images/post1/41.png)
+
+Pandas DataFrame deleting rows.
 
 ```py
-df2 = pd.DataFrame([[5, 6], [7, 8]], columns=list('AB'))
-df = df.append(df2)
-df
+df.drop([0,1,3]) # deleting 0th, 1st and 3rd row by index.
 ```
-![](images/post1/37.PNG)
+![](images/post1/42.png)
 
-## Deletion
-```py
-# Drop columns
-df.drop(['A'],axis=1)
-```
-![](images/post1/38.PNG)
+## Preprocessing and Data Cleaning.
 
 ```py
-# Drop both columns
-df.drop(['A','B'],axis=1)
-```
-![](images/post1/39.PNG)
-
-```py
-df = pd.DataFrame([[1, 2], [3, 4]], columns=list('AB'))
-df
-```
-![](images/post1/40.PNG)
-
-```py
-# Different ways
-# df.drop(df.columns[[0,1]],axis=1)
-# df.drop(columns=['B', 'C'])
-# drop rows by index
-df.drop([1, 1]) # drop row at index 1 to 1
-```
-![](images/post1/41.PNG)
-
-## Data Cleaning
-```py
-filename = 'C:\\Users\\GJ250005\\Downloads\\Freelencing\\Chegg\\Solutions\\roux\\undergradSurvey.csv'
+filename = 'Data\\undergradSurvey.csv'
 df = pd.read_csv(filename)
-# df = df[['st_id', 'gender', 'age', 'class_st', 'major', 'grad intention', 'gpa', 'employment', 'salary', 'satisfaction']]
 df.head()
 ```
-![](images/post1/42.PNG)
+![](images/post1/43.png)
+
+We can observe there are many NaN values inside some colums.
 
 ```py
 df.tail()
 ```
-![](images/post1/43.PNG)
-## Remove NA
+![](images/post1/44.png)
+
+Pandas DataFrame check how many columns have NaN values.
+
 ```py
-df.isnull().any()
+df.isnull().any() # True means it contains NaN vlaues. So here all the columns have at least one NaN.
 ```
-![](images/post1/44.PNG)
+![](images/post1/45.png)
+
+Pandas DataFrame check count of NaN values inside each column.
+
 ```py
-df.count() # If values are not same it means it has Nan
+df.isnull().sum()
 ```
-![](images/post1/45.PNG)
+![](images/post1/46.png)
+
+Now we know everything about the presence of NaN values in our data, let's remove it.Pandas DataFrame remove the rows having NaN values in at least on column.
+
 ```py
-df = df.dropna(axis=0,thresh = 2)# thresh means how many non-nan you are looking for.
-#df = df.dropna(axis=0, subset=['age','age'])
-#df = df.dropna(axis=1) # everything will be deleted
-#df = df.dropna(axis=1, how = 'all') none of them will be deleted
-#df = df.dropna(axis=1, thresh = 63)
-#df = df.dropna(axis=1, thresh = 63)
-df.tail()
+df.dropna(axis=0).tail()# This remove all the rows having NaN vlaue in any of the column.
 ```
-![](images/post1/46.PNG)
-## Dealing with categorical values
+![](images/post1/47.png)
+
+Pandas DataFrame remove the rows having NaN values in selected columns.
 ```py
-x1 = df
+df.dropna(axis=0, subset=['age']).tail() # it will remove the row only when NaN exist in age column, we specify multiple columns.
+```
+![](images/post1/48.png)
+
+```py
+df.dropna(axis=0, subset=['age', 'gender']).tail() # it will remove the row if any of the given column(age, gender) contains NaN.
+```
+![](images/post1/49.png)
+
+Pandas DataFrame remove the rows having NaN values in selected columns.
+
+```py
+df.dropna(axis=0,thresh = 1).tail() # Here it will delete the row only if it have less then 1 non-NaN values.
+```
+![](images/post1/50.png)
+
+Pandas DataFrame remove the column based on the number of NaN values in the column.It will search for only one NaN inside a column if it exists it will delete that column.
+
+```py
+df.dropna(axis=1).head() # It has deleted all the columns.
+```
+![](images/post1/51.png)
+
+Pandas DataFrame remove the column based on the number of NaN values in the column.It will check if a column contains all the values as NaN, that column will be dropped. We can thresh here too.
+
+```py
+df.dropna(axis=1, how = 'all').head()
+```
+![](images/post1/52.png)
+
+## Dealing with categorical values.
+
+```py
+x1 = df.dropna(axis=0) # creating the dataframe into x1 after removing all the NaN rows. 
 d = {'Male':0, 'Female':1}
-x1['gender'] = x1['gender'].apply(lambda x1:d[x1])
+x1['gender'] = x1['gender'].apply(lambda x:d[x])# This will assign Male to 0 and Female to 1
 x1.head()
 ```
-![](images/post1/47.PNG)
-## Average out the missing values
+![](images/post1/53.png)
+
+## Average out the missing values.
 ```py
-df['age']=df['age'].fillna(df['age'].mean())
-df.tail()
+df['age'].tail()
 ```
-![](images/post1/48.PNG)
-## Case studies
-```py
-#Wine data
-# cols = ['fixed acidity', 'volatile acidity','citric acid','residual sugar', 'chlorides','free sulfur dioxide','total sulfur dioxide','density','pH','sulphates','alcohol','quality']
-data = pd.read_csv("Data/winequality-white.csv", sep = ';')
-df = pd.DataFrame(data)
-print(df.shape)
-print(df.columns)
-df.head()
-```
-![](images/post1/49.PNG)
-```py
-# Data cleaning
-filename = "Data/prospects3.csv"
-colnames = ['FIRST_NAME', 'LAST_NAME', 'EMAIL_ADDRESS', 'OWNS_CAR', 'ANNUAL_SALARY']
-df = pd.read_csv(filename ,names=colnames, header=None)
-df.head()
-```
-![](images/post1/50.PNG)
-```py
-# Clean it.
-#check clean.py
-#Signature:- lambda arg1,arg2..., argn : operation
-def myfunc(OWNS_CAR):
-    if(OWNS_CAR =='yes' or OWNS_CAR == 'y'):
-        return 'y'
-    else:
-        return 'n'
-```
-```py
-# df['OWNS_CAR'] = df.apply(lambda x: myfunc(x.OWNS_CAR), axis=1)
-df['OWNS_CAR'] = df['OWNS_CAR'].apply(lambda x: myfunc(x))
-# df['OWNS_CAR'] = df.apply(lambda x: myfunc(x['OWNS_CAR']),axis=1)
-df.head()
-```
-![](images/post1/51.PNG)
-## Iris
-```py
-iris = pd.read_csv('Data/iris.csv')
-iris.head()
-```
-![](images/post1/52.PNG)
+![](images/post1/54.png)
 
 ```py
-#Get important informations
-print("shape: \n", iris.shape)
-print("columns: \n", iris.columns)
-print("species counts : \n", iris['species'].value_counts())
+df['age'].fillna(df['age'].mean()).tail()
 ```
-![](images/post1/53.PNG)
+![](images/post1/55.png)
+
+## Useful pandas functions.
 
 ```py
-cols = ['sepal_length','sepal_width','petal_length','petal_width']
-x = iris[cols]
-x.head() 
+print("each columns datatypes: \n",df.dtypes)
+print("age column's datatype: \n",df.age.dtypes)
+print("shape of the DataFrame(row*col) is : ",df.shape)
+print("Distribution of different age in the given data:\n",df['age'].value_counts())
 ```
-![](images/post1/54.PNG)
+![](images/post1/56.png)
 
 ```py
-y = iris['species']
-y.head()
+df.info()
 ```
-![](images/post1/55.PNG)
+![](images/post1/57.png)
 
 ```py
-from sklearn.model_selection import train_test_split
-x_train, x_test, y_train, y_test = train_test_split(x,y,test_size = 0.2)
-y_test.head()
+df.describe()
 ```
-![](images/post1/56.PNG)
-
-```py
-y_test.value_counts()
-```
-![](images/post1/57.PNG)
-
-
-## miscellaneous
-```py
-df.T
-```
-![](images/post1/58.PNG)
-
-
-```py
-df['gender'].value_counts()
-```
-
-![](images/post1/59.PNG)
-
-
-```py
-df = pd.DataFrame({'A': range(4), 'B': [2*i for i in range(4)]})
-df
-```
-![](images/post1/60.PNG)
-
-
-```py
-df['A'].corr(df['B'])
-```
-<code>
-	1.0
-</code>
-
-```py
-df.corr()
-```
-![](images/post1/61.PNG)
-
-
-```py
-
-filename = 'C:\\Users\\GJ250005\\Downloads\\Freelencing\\Chegg\\Solutions\\roux\\undergradSurvey.csv'
-df = pd.read_csv(filename)
-df = df[['st_id', 'gender', 'age', 'class_st', 'major', 'grad intention', 'gpa', 'employment', 'salary', 'satisfaction']]
-df = df[df['st_id'].notnull()]
-df.head()
-
-```
-![](images/post1/62.PNG)
-
+![](images/post1/58.png)

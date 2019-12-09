@@ -1,25 +1,25 @@
 {
  "name": "capablity",
- "children": [{
+ "child": [{
    "name": "commApplyResponses",
-   "children": [{
+   "child": [{
      "name": "are"
     }
    ]
   },
   {
    "name": "commCycleLeads",
-   "children": [{
+   "child": [{
      "name": "cle"
     }
    ]
   },
   {
    "name": "commIntraDay",
-   "children": [{
+   "child": [{
      "name": "are"
     },{
-     "name": "clechanged"
+     "name": "clehngd"
     }
    ]
   }

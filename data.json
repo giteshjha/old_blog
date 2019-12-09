@@ -1,27 +1,32 @@
 {
- "name": "capablity",
- "children": [{
-   "name": "commApplyResponses",
-   "children": [{
-     "name": "are"
+  "name": "capablity",
+  "child": [
+    {
+      "name": "commApplyResponses",
+      "child": [
+        {
+          "name": "are"
+        }
+      ]
+    },
+    {
+      "name": "commCycleLeads",
+      "child": [
+        {
+          "name": "cle"
+        }
+      ]
+    },
+    {
+      "name": "commIntraDay",
+      "child": [
+        {
+          "name": "are"
+        },
+        {
+          "name": "cle"
+        }
+      ]
     }
-   ]
-  },
-  {
-   "name": "commCycleLeads",
-   "children": [{
-     "name": "cle"
-    }
-   ]
-  },
-  {
-   "name": "commIntraDay",
-   "children": [{
-     "name": "are"
-    },{
-     "name": "cle"
-    }
-   ]
-  }
- ]
+  ]
 }

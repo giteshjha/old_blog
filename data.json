@@ -1,4 +1,6 @@
-[{"name": "commApplyResponses", "child": [{"name": "are"}]},
+{
+  "cap": "val",
+  "child":[{"name": "commApplyResponses", "child": [{"name": "are"}]},
  {"name": "commCycleLeads", "child": [{"name": "cle"}]},
  {"name": "commIntraDay", "child": [{"name": "are"}, {"name": "cle"}]},
  {"name": "commLeadGeneration", "child": [{"name": "lge"}, {"name": "dco"}]},
@@ -35,4 +37,4 @@
    {"name": "dco"},
    {"name": "hke"},
    {"name": "out"}]},
- {"name": "commSimulation", "child": [{"name": "sim"}]}]
+ {"name": "commSimulation", "child": [{"name": "sim"}]}]}
